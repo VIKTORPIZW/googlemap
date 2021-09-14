@@ -38,7 +38,7 @@ class MainFragment : Fragment(), RecyclerViewAdapter.ClickListener{
     }
     private fun buildDisplayData (){
         for (i in 1 .. 1000)
-            listData.add(DataModel("Title $i"))
+            listData.add(DataModel("Title $i","Description $i"))
 
     }
 

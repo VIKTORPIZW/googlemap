@@ -18,20 +18,23 @@ class RecyclerViewAdapter(val listData: List<DataModel>, val clickListener: Clic
     }
     class MyViewHolder(view : View) : RecyclerView.ViewHolder(view){
         var titleTextView: TextView
+        var descriptionTextView: TextView
         init {
             titleTextView = view.findViewById(R.id.textTitle)
+            descriptionTextView = view.findViewById(R.id.textDescription)
         }
 
     }
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         holder.titleTextView.text = listData.get(position).title
+        holder.descriptionTextView.text = listData.get(position).description
         holder.itemView.setOnClickListener{
             clickListener.onItemClick(listData.get(position))
         }
     }
     interface ClickListener {
         fun onItemClick(dataModel: DataModel)
-        
+
     }
 }
