@@ -54,6 +54,11 @@ class MainFragment : Fragment(), RecyclerViewAdapter.ClickListener{
     }
 
     override fun onItemClick(dataModel: DataModel) {
-        TODO("Not yet implemented")
+        val fragment: Fragment = SecondFragment.newInstance(dataModel.title!!, dataModel.description!!)
+        val transaction = activity?.supportFragmentManager!!.beginTransaction()
+        transaction.hide(activity?.supportFragmentManager!!.findFragmentByTag("main_fragment")!!)
+        transaction.add(R.id.fragment_container,fragment)
+        transaction.addToBackStack(null)
+        transaction.commit()
     }
 }
