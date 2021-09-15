@@ -16,8 +16,6 @@ class SecondFragment : Fragment() {
     private var param2: String? = null
 
 
-
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
@@ -32,9 +30,9 @@ class SecondFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
-       val view = inflater.inflate(R.layout.fragment_second, container, false)
-       val title = view.findViewById<TextView>(R.id.txtTitleLarge)
-       val description = view.findViewById<TextView>(R.id.txtDescriptionLarge)
+        val view = inflater.inflate(R.layout.fragment_second, container, false)
+        val title = view.findViewById<TextView>(R.id.txtTitleLarge)
+        val description = view.findViewById<TextView>(R.id.txtDescriptionLarge)
 
         title.text = param1
         description.text = param2

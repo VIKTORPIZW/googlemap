@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import java.util.*
 
-class MainFragment : Fragment(), RecyclerViewAdapter.ClickListener{
+class MainFragment : Fragment(), RecyclerViewAdapter.ClickListener {
     private lateinit var adapter: RecyclerViewAdapter
     val listData: LinkedList<DataModel> = LinkedList()
 
@@ -28,17 +28,19 @@ class MainFragment : Fragment(), RecyclerViewAdapter.ClickListener{
         initRecyclerView(view)
         return view
     }
-    private fun initRecyclerView (view: View){
+
+    private fun initRecyclerView(view: View) {
 
         val recyclerView = view.findViewById<RecyclerView>(R.id.recyclerView)
         recyclerView.layoutManager = LinearLayoutManager(activity)
-        adapter = RecyclerViewAdapter(listData,this)
+        adapter = RecyclerViewAdapter(listData, this)
         recyclerView.adapter = adapter
 
     }
-    private fun buildDisplayData (){
-        for (i in 1 .. 1000)
-            listData.add(DataModel("Title $i","Description $i"))
+
+    private fun buildDisplayData() {
+        for (i in 1..1000)
+            listData.add(DataModel("Title $i", "Description $i"))
 
     }
 
@@ -54,10 +56,11 @@ class MainFragment : Fragment(), RecyclerViewAdapter.ClickListener{
     }
 
     override fun onItemClick(dataModel: DataModel) {
-        val fragment: Fragment = SecondFragment.newInstance(dataModel.title!!, dataModel.description!!)
+        val fragment: Fragment =
+            SecondFragment.newInstance(dataModel.title!!, dataModel.description!!)
         val transaction = activity?.supportFragmentManager!!.beginTransaction()
         transaction.hide(activity?.supportFragmentManager!!.findFragmentByTag("main_fragment")!!)
-        transaction.add(R.id.fragment_container,fragment)
+        transaction.add(R.id.fragment_container, fragment)
         transaction.addToBackStack(null)
         transaction.commit()
     }
