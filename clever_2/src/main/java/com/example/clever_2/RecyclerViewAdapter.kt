@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 
-class RecyclerViewAdapter(val listData: List<DataModel>, val clickListener: ClickListener) :
+class RecyclerViewAdapter( val listData: List<DataModel>, val clickListener: ClickListener) :
     RecyclerView.Adapter<RecyclerViewAdapter.MyViewHolder>() {
     override fun onCreateViewHolder(
         parent: ViewGroup,

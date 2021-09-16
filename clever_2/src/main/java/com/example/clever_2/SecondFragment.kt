@@ -5,7 +5,10 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.TextView
+import androidx.fragment.app.FragmentManager
+
 
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
@@ -16,11 +19,13 @@ class SecondFragment : Fragment() {
     private var param2: String? = null
 
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
             param1 = it.getString(ARG_PARAM1)
             param2 = it.getString(ARG_PARAM2)
+
 
         }
     }
@@ -36,9 +41,13 @@ class SecondFragment : Fragment() {
 
         title.text = param1
         description.text = param2
+        val button: Button = view.findViewById(R.id.button)
+        button.setOnClickListener {
+            val fragment:Fragment = this
+            fragment.activity?.supportFragmentManager?.popBackStack()
+        }
         return view
     }
-
     companion object {
 
         @JvmStatic

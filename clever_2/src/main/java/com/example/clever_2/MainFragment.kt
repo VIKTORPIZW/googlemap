@@ -18,7 +18,6 @@ class MainFragment : Fragment(), RecyclerViewAdapter.ClickListener {
         arguments?.let {
         }
     }
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -28,22 +27,18 @@ class MainFragment : Fragment(), RecyclerViewAdapter.ClickListener {
         initRecyclerView(view)
         return view
     }
-
     private fun initRecyclerView(view: View) {
 
         val recyclerView = view.findViewById<RecyclerView>(R.id.recyclerView)
         recyclerView.layoutManager = LinearLayoutManager(activity)
         adapter = RecyclerViewAdapter(listData, this)
         recyclerView.adapter = adapter
-
     }
-
     private fun buildDisplayData() {
         for (i in 1..1000)
             listData.add(DataModel("Title $i", "Description $i"))
 
     }
-
     companion object {
 
         @JvmStatic
