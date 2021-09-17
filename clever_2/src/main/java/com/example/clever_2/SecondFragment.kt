@@ -46,6 +46,11 @@ class SecondFragment : Fragment() {
             val fragment:Fragment = this
             fragment.activity?.supportFragmentManager?.popBackStack()
         }
+        val buttonExit: Button = view.findViewById(R.id.buttonExit)
+        buttonExit.setOnClickListener {
+            activity?.finish()
+
+        }
         return view
     }
     companion object {
