@@ -8,7 +8,7 @@
     tools:context=".SecondFragment">
 
 
-    <Toolbar
+    <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolBarSecondFragment"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -21,7 +21,6 @@
         tools:targetApi="lollipop">
 
 
-
         <ImageButton
             android:id="@+id/imageButtonBack"
             android:layout_width="wrap_content"
@@ -30,7 +29,7 @@
             android:src="@android:drawable/ic_menu_revert"
             tools:layout_editor_absoluteX="104dp"
             tools:layout_editor_absoluteY="18dp" />
-    </Toolbar>
+    </androidx.appcompat.widget.Toolbar>
 
     <ImageView
         android:id="@+id/imageTitleLarge"
