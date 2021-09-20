@@ -1,0 +1,10 @@
+com/example/clever_2/databinding/RecyclerRawBinding.java
+ com.example.clever_2.databinding.RecyclerRawBinding
+com/example/clever_2/databinding/FragmentMainBinding.java
+ com.example.clever_2.databinding.FragmentMainBinding
+com/example/clever_2/databinding/ActivityMainBinding.java
+ com.example.clever_2.databinding.ActivityMainBinding
+com/example/clever_2/BuildConfig.java
+ com.example.clever_2.BuildConfig
+com/example/clever_2/databinding/FragmentSecondBinding.java
+ com.example.clever_2.databinding.FragmentSecondBinding
