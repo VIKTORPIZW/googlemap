@@ -1,3 +1,4 @@
 rootProject.name = "clever"
 include ':app'
-include ':clever_3'
+
+include ':home_task_3'
