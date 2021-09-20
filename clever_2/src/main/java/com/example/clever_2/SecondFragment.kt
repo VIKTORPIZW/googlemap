@@ -15,8 +15,6 @@ private const val ARG_PARAM2 = "param2"
 
 
 class SecondFragment : Fragment() {
-    private var param1: String? = null
-    private var param2: String? = null
 
 
 
@@ -53,6 +51,9 @@ class SecondFragment : Fragment() {
         return view
     }
     companion object {
+        private var param1: String? = null
+        private var param2: String? = null
+
 
         @JvmStatic
         fun newInstance(param1: String, param2: String) =
