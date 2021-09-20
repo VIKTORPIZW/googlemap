@@ -6,17 +6,31 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".SecondFragment">
+
+
     <Toolbar
         android:id="@+id/toolBarSecondFragment"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
         android:background="@color/textColor"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        tools:targetApi="lollipop" />
+        tools:targetApi="lollipop">
 
 
+
+        <ImageButton
+            android:id="@+id/imageButtonBack"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:src="@android:drawable/ic_menu_revert"
+            tools:layout_editor_absoluteX="104dp"
+            tools:layout_editor_absoluteY="18dp" />
+    </Toolbar>
 
     <ImageView
         android:id="@+id/imageTitleLarge"
@@ -46,16 +60,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/txtTitleLarge" />
 
-    <Button
-        android:id="@+id/button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/txtButtonBack"
-        android:textColor="@color/textColor"
-        app:layout_constraintBottom_toTopOf="@+id/imageTitleLarge"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+
     <Button
         android:id="@+id/buttonExit"
         android:layout_width="wrap_content"

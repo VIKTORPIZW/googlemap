@@ -6,8 +6,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.ImageButton
 import android.widget.TextView
-import androidx.fragment.app.FragmentManager
 
 
 private const val ARG_PARAM1 = "param1"
@@ -41,15 +41,14 @@ class SecondFragment : Fragment() {
 
         title.text = param1
         description.text = param2
-        val button: Button = view.findViewById(R.id.button)
-        button.setOnClickListener {
-            val fragment:Fragment = this
-            fragment.activity?.supportFragmentManager?.popBackStack()
-        }
         val buttonExit: Button = view.findViewById(R.id.buttonExit)
         buttonExit.setOnClickListener {
             activity?.finish()
-
+        }
+        val imageButton :ImageButton = view.findViewById(R.id.imageButtonBack)
+        imageButton.setOnClickListener {
+            val fragment: Fragment = this
+            fragment.activity?.supportFragmentManager?.popBackStack()
         }
         return view
     }
