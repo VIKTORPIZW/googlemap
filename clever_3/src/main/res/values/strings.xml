@@ -1,3 +1,6 @@
 <resources>
     <string name="app_name">clever_3</string>
+    <string name="txtSelectContact">Выбрать контакт</string>
+    <string name="txtShowContact">Показать контакты</string>
+    <string name="btnShowFromSP">Показать из SP</string>
 </resources>
