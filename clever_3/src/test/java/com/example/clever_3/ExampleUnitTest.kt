@@ -1,4 +1,4 @@
-package com.example.home_task_3
+package com.example.clever_3
 
 import org.junit.Test
 
