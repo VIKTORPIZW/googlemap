@@ -3,4 +3,6 @@
     <string name="txtSelectContact">Выбрать контакт</string>
     <string name="txtShowContact">Показать контакты</string>
     <string name="btnShowFromSP">Показать из SP</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
