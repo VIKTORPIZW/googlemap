@@ -1,6 +1,8 @@
 package com.example.clever_3
 
+import android.Manifest
 import android.content.Context
+import android.content.pm.PackageManager
 import android.net.Uri
 
 import android.os.Bundle
@@ -13,6 +15,7 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 
@@ -23,40 +26,65 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        val buttonShowFromSP: Button = findViewById(R.id.btn_show_from_SP)
         val button: Button = findViewById(R.id.btn_read_contact)
         var list: RecyclerView = findViewById(R.id.listView)
         list.layoutManager = LinearLayoutManager(this)
-        button.setOnClickListener {
-            val contactList: MutableList<ContactDTO> = ArrayList()
-            val contacts = contentResolver.query(
-                ContactsContract.CommonDataKinds.Phone.CONTENT_URI,
-                null,
-                null,
-                null,
-                null
-            )
-            while (contacts!!.moveToNext()) {
-                val name =
-                    contacts.getString(contacts.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME))
-                val number =
-                    contacts.getString(contacts.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER))
-                val obj = ContactDTO()
-                obj.name = name
-                obj.number = number
 
-                val photo_uri =
-                    contacts.getString(contacts.getColumnIndex(ContactsContract.CommonDataKinds.Phone.PHOTO_URI))
-                if (photo_uri != null) {
-                    obj.image =
-                        MediaStore.Images.Media.getBitmap(contentResolver, Uri.parse(photo_uri))
-                }
-                contactList.add(obj)
-            }
-            list.adapter = ContactAdapter(contactList, this)
-            contacts.close()
+        buttonShowFromSP.setOnClickListener {
+
         }
 
+        button.setOnClickListener {
+            if (ActivityCompat.checkSelfPermission(
+                    this,
+                    Manifest.permission.READ_CONTACTS
+                ) != PackageManager.PERMISSION_GRANTED
+            ) {
+                ActivityCompat.requestPermissions(
+                    this,
+                    Array(1) { Manifest.permission.READ_CONTACTS },
+                    111
+                )
+
+            } else {
+
+
+                val contactList: MutableList<ContactDTO> = ArrayList()
+                val contacts = contentResolver.query(
+                    ContactsContract.CommonDataKinds.Phone.CONTENT_URI,
+                    null,
+                    null,
+                    null,
+                    null
+                )
+                while (contacts!!.moveToNext()) {
+                    val name =
+                        contacts.getString(contacts.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME))
+                    val number =
+                        contacts.getString(contacts.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER))
+                    val obj = ContactDTO()
+                    obj.name = name
+                    obj.number = number
+
+                    val photo_uri =
+                        contacts.getString(contacts.getColumnIndex(ContactsContract.CommonDataKinds.Phone.PHOTO_URI))
+                    if (photo_uri != null) {
+                        obj.image =
+                            MediaStore.Images.Media.getBitmap(contentResolver, Uri.parse(photo_uri))
+                    }
+                    contactList.add(obj)
+                }
+                list.adapter = ContactAdapter(contactList, this)
+                contacts.close()
+            }
+
+
+
+        }
     }
+
 
     class ContactAdapter(items: List<ContactDTO>, ctx: Context) :
         RecyclerView.Adapter<ContactAdapter.ViewHolder>() {
@@ -86,6 +114,14 @@ class MainActivity : AppCompatActivity() {
             val profile = v.findViewById<ImageView>(R.id.iv_profile)
         }
 
+
+    }
+     override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
 
     }
 
