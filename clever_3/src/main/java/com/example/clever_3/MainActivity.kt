@@ -9,15 +9,14 @@ import android.widget.Button
 import android.widget.ListView
 import android.widget.SimpleCursorAdapter
 
+
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat
-import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentManager
-import com.example.clever_3.databinding.ActivityMainBinding
+
 
 
 class MainActivity : AppCompatActivity() {
+    private lateinit var listView :ListView
 
     var cols = listOf<String>(
         ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME,
@@ -29,7 +28,8 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        val listView1:ListView = findViewById(R.id.listView)
+
+        listView = findViewById(R.id.listView)
         val buttonSelect: Button = findViewById(R.id.btnSelect)
         buttonSelect.setOnClickListener {
             if (ActivityCompat.checkSelfPermission(
@@ -61,6 +61,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun readContacts() {
+
         var from = listOf<String>(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME,
             ContactsContract.CommonDataKinds.Phone.NUMBER).toTypedArray()
         var to = intArrayOf(android.R.id.text1, android.R.id.text2)
@@ -71,7 +72,7 @@ class MainActivity : AppCompatActivity() {
             null,
             ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME
         )
-        var adapter = SimpleCursorAdapter (this,android.R.layout.simple_list_item_1,rc,from,to,0)
-
+        var adapter = SimpleCursorAdapter (this,android.R.layout.simple_list_item_2,rc,from,to,0)
+        listView.adapter = adapter
     }
 }
