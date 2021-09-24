@@ -7,5 +7,6 @@ class ContactDTO{
     var name = ""
     var number = ""
     var image : Bitmap? = null
+    var emai = ""
 
 }
