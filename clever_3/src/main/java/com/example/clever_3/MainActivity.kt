@@ -32,16 +32,29 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+<<<<<<< HEAD
 
 
 
 
         val button: Button = findViewById(R.id.btn_read_contact)
+=======
+        val buttonShowFromSP: Button = findViewById(R.id.btn_show_from_SP)
+        val button: Button = findViewById(R.id.btn_read_contact)
+        var list: RecyclerView = findViewById(R.id.listView)
+        list.layoutManager = LinearLayoutManager(this)
+
+        buttonShowFromSP.setOnClickListener {
+
+        }
+
+>>>>>>> a7e0a74fd5d0ce24f12e63e686264863d89d9531
         button.setOnClickListener {
             if (ActivityCompat.checkSelfPermission(
                     this,
                     Manifest.permission.READ_CONTACTS
                 ) != PackageManager.PERMISSION_GRANTED
+<<<<<<< HEAD
             )
                 ActivityCompat.requestPermissions(
                     this,
@@ -51,9 +64,53 @@ class MainActivity : AppCompatActivity() {
             else readContact()
 
         }
+=======
+            ) {
+                ActivityCompat.requestPermissions(
+                    this,
+                    Array(1) { Manifest.permission.READ_CONTACTS },
+                    111
+                )
 
+            } else {
+
+
+                val contactList: MutableList<ContactDTO> = ArrayList()
+                val contacts = contentResolver.query(
+                    ContactsContract.CommonDataKinds.Phone.CONTENT_URI,
+                    null,
+                    null,
+                    null,
+                    null
+                )
+                while (contacts!!.moveToNext()) {
+                    val name =
+                        contacts.getString(contacts.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME))
+                    val number =
+                        contacts.getString(contacts.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER))
+                    val obj = ContactDTO()
+                    obj.name = name
+                    obj.number = number
+
+                    val photo_uri =
+                        contacts.getString(contacts.getColumnIndex(ContactsContract.CommonDataKinds.Phone.PHOTO_URI))
+                    if (photo_uri != null) {
+                        obj.image =
+                            MediaStore.Images.Media.getBitmap(contentResolver, Uri.parse(photo_uri))
+                    }
+                    contactList.add(obj)
+                }
+                list.adapter = ContactAdapter(contactList, this)
+                contacts.close()
+            }
+>>>>>>> a7e0a74fd5d0ce24f12e63e686264863d89d9531
+
+
+
+        }
     }
 
+<<<<<<< HEAD
     override fun onRequestPermissionsResult(
         requestCode: Int,
         permissions: Array<out String>,
@@ -99,6 +156,8 @@ class MainActivity : AppCompatActivity() {
         contacts.close()
     }
 
+=======
+>>>>>>> a7e0a74fd5d0ce24f12e63e686264863d89d9531
 
     class ContactAdapter(items: List<ContactDTO>, ctx: Context) :
         RecyclerView.Adapter<ContactAdapter.ViewHolder>() {
@@ -154,7 +213,18 @@ class MainActivity : AppCompatActivity() {
 
 
     }
+<<<<<<< HEAD
 }
 
+=======
+     override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+
+    }
+>>>>>>> a7e0a74fd5d0ce24f12e63e686264863d89d9531
 
 
