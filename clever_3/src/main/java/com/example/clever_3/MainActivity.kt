@@ -1,7 +1,9 @@
 package com.example.clever_3
 
 import android.Manifest
+import android.app.Dialog
 import android.content.Context
+import android.content.DialogInterface
 import android.content.pm.PackageManager
 import android.net.Uri
 
@@ -15,12 +17,14 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.clever_3.db.ContactsEntity
 import com.example.clever_3.db.RoomContactsDb
+import com.example.clever_3.ext.toArrayOfStrings
 
 
 class MainActivity : AppCompatActivity() {
@@ -32,10 +36,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-
-
-
-
+        val buttonSecond: Button = findViewById(R.id.btn_show_contact)
         val button: Button = findViewById(R.id.btn_read_contact)
         button.setOnClickListener {
             if (ActivityCompat.checkSelfPermission(
@@ -51,9 +52,20 @@ class MainActivity : AppCompatActivity() {
             else readContact()
 
         }
+        buttonSecond.setOnClickListener {
+            val builder = AlertDialog.Builder(this)
+            val db = RoomContactsDb.getAppDatabase(this)?.contactDao()
+            val myList: List<ContactsEntity>? = db?.getAllContactsInfo()
+            val listFromDb = myList?.toMutableList()
+            val arrayContacts = listFromDb?.toArrayOfStrings()
+            builder.setMultiChoiceItems(arrayContacts,null){ dialog, which, choise ->
+            }
+            builder.show()
+
+
+        }
 
     }
-
 
     override fun onRequestPermissionsResult(
         requestCode: Int,
@@ -64,6 +76,7 @@ class MainActivity : AppCompatActivity() {
         if (requestCode == 123 && grantResults[0] == PackageManager.PERMISSION_GRANTED)
             readContact()
     }
+
 
     private fun readContact() {
         var list: RecyclerView = findViewById(R.id.listView)
@@ -155,7 +168,10 @@ class MainActivity : AppCompatActivity() {
 
 
     }
+
+
 }
+
 
 
 

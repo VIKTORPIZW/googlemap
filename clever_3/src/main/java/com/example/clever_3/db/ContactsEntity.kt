@@ -5,7 +5,7 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 
-<<<<<<< HEAD
+
 @Entity (tableName = "contacts_list")
 data class ContactsEntity(
     @PrimaryKey
@@ -15,13 +15,5 @@ data class ContactsEntity(
 )
 
 
-=======
-@Entity(tableName = "contactsInfo")
-data class ContactsEntity(
-    @PrimaryKey(autoGenerate = true) @ColumnInfo(name = "id") val id: Int?,
-    @ColumnInfo(name = "name") val name: String?,
-    @ColumnInfo(name = "number") val number: String?,
-    @ColumnInfo(name = "email") val email: String?
-)
 
->>>>>>> a7e0a74fd5d0ce24f12e63e686264863d89d9531
+

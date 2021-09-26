@@ -15,6 +15,7 @@ interface ContactDAO {
     @Query("SELECT * FROM contacts_list")
     fun getAllContactsInfo(): List<ContactsEntity>
 
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertContact(contact: ContactsEntity)
 }
