@@ -4,12 +4,14 @@ import android.Manifest
 import android.app.Dialog
 import android.content.Context
 import android.content.DialogInterface
+import android.content.SharedPreferences
 import android.content.pm.PackageManager
 import android.net.Uri
 
 import android.os.Bundle
 import android.provider.ContactsContract
 import android.provider.MediaStore
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -28,8 +30,6 @@ import com.example.clever_3.ext.toArrayOfStrings
 
 
 class MainActivity : AppCompatActivity() {
-
-
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -52,20 +52,47 @@ class MainActivity : AppCompatActivity() {
             else readContact()
 
         }
+
         buttonSecond.setOnClickListener {
             val builder = AlertDialog.Builder(this)
             val db = RoomContactsDb.getAppDatabase(this)?.contactDao()
             val myList: List<ContactsEntity>? = db?.getAllContactsInfo()
+            builder.setTitle("Выбрать контакт")
             val listFromDb = myList?.toMutableList()
             val arrayContacts = listFromDb?.toArrayOfStrings()
-            builder.setMultiChoiceItems(arrayContacts,null){ dialog, which, choise ->
+            var checkedIndex = -1
+
+            builder.setSingleChoiceItems(
+                arrayContacts,
+                -1,
+                DialogInterface.OnClickListener { dialog, index ->
+                    checkedIndex = index
+                })
+
+            builder.setPositiveButton("OK") { dialog, id ->
+                dialog.dismiss()
+                Toast.makeText(this, "Сохранено в SP", Toast.LENGTH_SHORT).show()
+                Log.d("My_Log", "Ok pressed, checked Index is $checkedIndex")
+                var contactForSP = arrayContacts?.get(checkedIndex)
+                val sharedPreferences =
+                    getSharedPreferences("myContactfromSP", Context.MODE_PRIVATE)
+                val editor = sharedPreferences.edit()
+                editor.putString("myData", contactForSP)
+                editor.apply()
             }
             builder.show()
 
-
+        }
+        val buttonShowFromSP: Button = findViewById(R.id.btn_show_from_SP)
+        buttonShowFromSP.setOnClickListener {
+            val sharedPreferences = getSharedPreferences("myContactfromSP", Context.MODE_PRIVATE)
+            val readFromSP = sharedPreferences.getString("myData", "")
+            val txtFromSp: TextView = findViewById(R.id.contact_from_sp)
+            txtFromSp.text = readFromSP
         }
 
     }
+
 
     override fun onRequestPermissionsResult(
         requestCode: Int,
@@ -113,15 +140,12 @@ class MainActivity : AppCompatActivity() {
         contacts.close()
     }
 
-
     class ContactAdapter(items: List<ContactDTO>, ctx: Context) :
         RecyclerView.Adapter<ContactAdapter.ViewHolder>() {
-
         private val list = items
         private val context = ctx
         override fun getItemCount(): Int {
             return list.size
-
         }
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -138,9 +162,6 @@ class MainActivity : AppCompatActivity() {
             holder.profile.setImageBitmap(list[position].image)
             holder.itemView.setOnClickListener(object : View.OnClickListener {
 
-
-
-
                 override fun onClick(v: View?) {
                     Toast.makeText(context, "Сохранено в Базу Данных", Toast.LENGTH_SHORT).show()
                     val txtName = contactItem.name
@@ -148,13 +169,10 @@ class MainActivity : AppCompatActivity() {
                     val txtEmail = contactItem.emai
 
                     val db = RoomContactsDb.getAppDatabase(context)?.contactDao()
-                    val contact = ContactsEntity(txtName,txtNumber,txtEmail)
+                    val contact = ContactsEntity(txtName, txtNumber, txtEmail)
                     db?.insertContact(contact)
-
-
                 }
             })
-
         }
 
         class ViewHolder(v: View) : RecyclerView.ViewHolder(v) {
@@ -164,12 +182,7 @@ class MainActivity : AppCompatActivity() {
             val profile = v.findViewById<ImageView>(R.id.iv_profile)
 
         }
-
-
-
     }
-
-
 }
 
 

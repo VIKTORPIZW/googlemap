@@ -11,7 +11,6 @@ import androidx.room.Query
 interface ContactDAO {
 
 
-
     @Query("SELECT * FROM contacts_list")
     fun getAllContactsInfo(): List<ContactsEntity>
 
