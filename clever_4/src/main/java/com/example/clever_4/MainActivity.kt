@@ -22,6 +22,7 @@ import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import com.example.clever_4.databinding.ActivityMainBinding
 import io.reactivex.Single
+import io.reactivex.rxkotlin.toFlowable
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -51,6 +52,10 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
 
         val viewModel = ViewModelProvider(this).get(AtmViewModel::class.java)
         viewModel.fetchAtmList(atmApi)
+
+
+
+
     }
 
     override fun onMapReady(googleMap: GoogleMap) {
@@ -98,6 +103,7 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
             .build()
 
         atmApi = retrofit.create(AtmApi::class.java)
+
 
     }
 

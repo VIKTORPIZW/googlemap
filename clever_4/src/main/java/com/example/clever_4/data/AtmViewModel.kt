@@ -2,13 +2,14 @@ package com.example.clever_4.data
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
-import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 
 
 class AtmViewModel(application: Application): AndroidViewModel(application) {
+    val gpsXList:MutableList<String> = mutableListOf()
+    val gpsYList:MutableList<String> = mutableListOf()
 
     private val compositeDisposable= CompositeDisposable()
     override fun onCleared() {
@@ -23,12 +24,13 @@ class AtmViewModel(application: Application): AndroidViewModel(application) {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({
 
+                        for (i in it.items.indices) {
+                            gpsXList.add( it.items[i].gps_x)
+                            gpsYList.add(it.items[i].gps_y)
+                        }
                 },{
 
                 }))
-
-
         }
-        
     }
 }
